@@ -1,0 +1,93 @@
+site_name: PDF Sentinel
+site_description: Event-driven PDF to Markdown conversion for LLM workflows - 60x faster, zero idle resources
+site_author: Ai4GenXers
+site_url: https://pdf-sentinel.readthedocs.io
+
+repo_name: Ai4GenXers/pdf-sentinel
+repo_url: https://github.com/Ai4GenXers/pdf-sentinel
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quick-start.md
+      - Configuration: getting-started/configuration.md
+  - User Guide:
+      - CLI Usage: user-guide/cli-usage.md
+      - Python API: user-guide/python-api.md
+      - systemd Service: user-guide/systemd-service.md
+      - Conversion Engines: user-guide/conversion-engines.md
+  - Architecture:
+      - Overview: architecture.md
+      - Performance: architecture/performance.md
+      - Research Foundation: architecture/research.md
+  - Troubleshooting: troubleshooting.md
+  - Development:
+      - Contributing: contributing.md
+      - Testing: development/testing.md
+      - Release Process: development/release-process.md
+  - About:
+      - Changelog: changelog.md
+      - License: license.md
+
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Ai4GenXers/pdf-sentinel
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/pdf-sentinel/

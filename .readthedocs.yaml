@@ -1,0 +1,20 @@
+# Read the Docs configuration file for PDF Sentinel
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+version: 2
+
+# Build documentation in the "docs/" directory with MkDocs
+mkdocs:
+  configuration: mkdocs.yml
+  fail_on_warning: false
+
+# Optionally build your docs in additional formats such as PDF and ePub
+formats:
+  - pdf
+  - epub
+
+# Python requirements required to build your documentation
+python:
+  version: "3.12"
+  install:
+    - requirements: docs/requirements.txt
