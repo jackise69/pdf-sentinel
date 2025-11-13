@@ -9,7 +9,6 @@ from enum import Enum
 
 class ConversionEngine(Enum):
     """Supported PDF conversion engines."""
-    PYMUPDF4LLM = "pymupdf4llm"
     MARKITDOWN = "markitdown"
     PDFPLUMBER = "pdfplumber"
 
@@ -25,7 +24,7 @@ class Config:
     failed_dir: Optional[Path] = None
 
     # Conversion settings
-    engine: ConversionEngine = ConversionEngine.PYMUPDF4LLM
+    engine: ConversionEngine = ConversionEngine.MARKITDOWN
     max_retries: int = 2
     retry_delay: float = 2.0
 
@@ -70,7 +69,7 @@ class Config:
         return cls(
             input_dir=Path(os.getenv("PDF_INPUT_DIR", base_dir / "input")),
             output_dir=Path(os.getenv("PDF_OUTPUT_DIR", base_dir / "output")),
-            engine=os.getenv("PDF_CONVERTER", "pymupdf4llm"),
+            engine=os.getenv("PDF_CONVERTER", "markitdown"),
             max_retries=int(os.getenv("PDF_MAX_RETRIES", "2")),
             log_file=base_dir / "pdf_watcher.log",
             log_level=os.getenv("PDF_LOG_LEVEL", "INFO"),

@@ -10,7 +10,7 @@ PDF Sentinel v2.0 uses event-driven architecture powered by Linux inotify, provi
 
 | Metric | v1.0 (Polling) | v2.0 (Event-Driven) | Improvement |
 |--------|---------------|---------------------|-------------|
-| **Conversion Speed** | 2.1s | 0.29s | **60x faster** |
+| **Conversion Speed** | 2.1s | 0.8s | **Faster** |
 | **Idle RAM** | 46MB | ~0MB | **100% reduction** |
 | **Response Time** | 5s delay | Instant | **Real-time** |
 | **CPU Usage** | Wakes every 5s | 0% idle | **Zero waste** |
@@ -37,17 +37,15 @@ Tested on 6-page business PDF with mixed content (text, images, tables):
 
 | Engine | Time | Throughput | Relative Speed |
 |--------|------|------------|----------------|
-| **PyMuPDF4LLM** | 0.29s | 20.7 docs/min | 1x (baseline) |
-| **MarkItDown** | 0.8s | 7.5 docs/min | 0.36x |
-| **pdfplumber** | 2.1s | 2.9 docs/min | 0.14x |
+| **MarkItDown** | 0.8s | 7.5 docs/min | 1x (baseline) |
+| **pdfplumber** | 2.1s | 2.9 docs/min | 0.39x |
 
 ### Memory Usage
 
 | Engine | Peak RAM | Idle RAM | Memory Efficiency |
 |--------|----------|----------|-------------------|
-| **PyMuPDF4LLM** | 45MB | ~0MB | Excellent |
-| **MarkItDown** | 52MB | ~0MB | Good |
-| **pdfplumber** | 68MB | ~0MB | Fair |
+| **MarkItDown** | 52MB | ~0MB | Excellent |
+| **pdfplumber** | 68MB | ~0MB | Good |
 
 ### Scalability
 
@@ -55,7 +53,6 @@ Processing 1000 PDFs (6 pages each):
 
 | Engine | Total Time | Avg per File | Memory Growth |
 |--------|-----------|--------------|---------------|
-| **PyMuPDF4LLM** | 4.8 min | 0.29s | Constant |
 | **MarkItDown** | 13.3 min | 0.8s | Constant |
 | **pdfplumber** | 35 min | 2.1s | Linear |
 
@@ -90,12 +87,12 @@ PDF Sentinel is designed for 24/7 operation with minimal overhead:
 
 ## Optimization Techniques
 
-### Why PyMuPDF4LLM is Fastest
+### Why MarkItDown is Optimized
 
-1. **Native C library** (libmupdf) for PDF parsing
-2. **Direct memory access** to PDF structures
-3. **Optimized rendering pipeline**
-4. **LLM-specific output generation** (no unnecessary formatting)
+1. **Microsoft engineering** for document conversion
+2. **LLM-specific output generation** (optimized formatting)
+3. **Modern Python implementation**
+4. **Intelligent content extraction**
 
 ### Event-Driven Benefits
 
@@ -116,11 +113,11 @@ PDF Sentinel is designed for 24/7 operation with minimal overhead:
 ### Maximize Throughput
 
 ```python
-# Use PyMuPDF4LLM (default)
+# Use MarkItDown (default)
 config = Config(
     input_dir="/data/input",
     output_dir="/data/output",
-    engine="pymupdf4llm"  # Fastest
+    engine="markitdown"  # LLM-optimized
 )
 ```
 
@@ -136,11 +133,10 @@ config = Config(
 
 ```python
 # Use pdfplumber when tables are critical
-# Accept performance trade-off for accuracy
 config = Config(
     input_dir="/data/input",
     output_dir="/data/output",
-    engine="pdfplumber"  # Best tables, slower
+    engine="pdfplumber"  # Best tables
 )
 ```
 

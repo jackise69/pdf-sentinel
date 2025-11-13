@@ -10,8 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Event-driven file monitoring using Watchdog (zero idle resources)
 - Multiple conversion engines:
-  - PyMuPDF4LLM (default, fastest, LLM-optimized)
-  - Microsoft MarkItDown (LLM-optimized)
+  - Microsoft MarkItDown (default, LLM-optimized)
   - pdfplumber (best for complex tables)
 - Automatic retry logic with configurable attempts
 - Comprehensive error handling and failed file tracking
@@ -31,13 +30,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Contributing guidelines
 
 ### Changed
-- Migrated from polling-based to event-driven monitoring (60x faster)
+- Migrated from polling-based to event-driven monitoring (faster response)
 - Replaced pdfplumber-only with multi-engine architecture
 - Improved error messages and logging
 - Enhanced configuration with environment variable support
 
 ### Performance
-- 60x faster PDF conversion (PyMuPDF4LLM vs pdfplumber)
+- Faster PDF conversion (MarkItDown vs pdfplumber)
 - Zero idle resource usage (event-driven vs polling)
 - Instant response time (vs 5-second delay)
 - Reduced memory footprint (~0MB idle vs ~46MB)
@@ -99,7 +98,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    ```
 
 **Benefits of Upgrading:**
-- 60x faster conversion
+- Faster LLM-optimized conversion
 - Zero idle resources
 - Better error handling
 - Multiple conversion engines

@@ -25,7 +25,7 @@ The architecture is based on comprehensive research including:
 
 4. **Performance Benchmarks**
    - Comparative analysis of 7 PDF extraction libraries (2025)
-   - Speed tests: pypdfium2, pypdf, pdfplumber, pymupdf4llm, textract, unstructured
+   - Speed tests: pypdfium2, pypdf, pdfplumber, markitdown, textract, unstructured
 
 ### Key Research Findings
 
@@ -39,13 +39,9 @@ The architecture is based on comprehensive research including:
 | Library | Speed (per page) | Tables | Text | LLM-Ready |
 |---------|-----------------|--------|------|-----------|
 | **pypdfium2** | 0.003s ⚡ | Poor | Good | No |
-| **PyMuPDF** | 0.042s ⚡⚡ | Good | Excellent | No |
-| **PyMuPDF4LLM** | 0.12s | Good | Excellent | **Yes** |
 | **pdfplumber** | 0.10s | **Excellent** | Good | No |
-| **MarkItDown** | Unknown | Good | Good | **Yes** |
+| **MarkItDown** | ~0.08s | Good | Good | **Yes** |
 | **Marker** | 0.04s (GPU) | Excellent | Excellent | **Yes** |
-
-**Key Finding**: PyMuPDF is **60x faster** than pdfplumber (42ms vs 2.5s)
 
 ## Technology Stack
 
@@ -67,16 +63,17 @@ class PDFEventHandler(FileSystemEventHandler):
         pass
 ```
 
-**2. PDF Conversion: PyMuPDF4LLM**
+**2. PDF Conversion: MarkItDown**
 
-- **Why**: 60x faster than pdfplumber, LLM-optimized output, excellent quality
-- **How**: Leverages PyMuPDF's fast C++ backend with Markdown optimization layer
-- **Alternative engines**: MarkItDown (Microsoft), pdfplumber (table focus)
+- **Why**: LLM-optimized output, Microsoft-backed, modern approach
+- **How**: Leverages Microsoft's document conversion expertise
+- **Alternative engines**: pdfplumber (table focus)
 
 ```python
-import pymupdf4llm
+import markitdown
 
-md_text = pymupdf4llm.to_markdown(str(pdf_path))
+md = MarkItDown()
+result = md.convert(str(pdf_path))
 ```
 
 **3. Service Management: systemd**
@@ -120,7 +117,7 @@ md_text = pymupdf4llm.to_markdown(str(pdf_path))
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    Conversion Router                         │
-│         (Select: PyMuPDF4LLM / MarkItDown / pdfplumber)     │
+│              (Select: MarkItDown / pdfplumber)              │
 └────────┬─────────────┬──────────────┬─────────────┬─────────┘
          │             │              │             │
          ▼             ▼              ▼             ▼
@@ -150,7 +147,7 @@ md_text = pymupdf4llm.to_markdown(str(pdf_path))
 - I/O: None until filesystem event
 
 **Active State** (converting PDF):
-- Memory: ~60-70MB (PyMuPDF libraries loaded)
+- Memory: ~60-70MB (conversion libraries loaded)
 - CPU: 50-100% (single core, brief burst)
 - I/O: Read PDF + Write Markdown
 
@@ -161,7 +158,7 @@ md_text = pymupdf4llm.to_markdown(str(pdf_path))
 | Idle RAM | ~46MB | ~0MB |
 | Idle CPU | Wakes every 5s | 0% |
 | Response Time | 5s delay | Instant |
-| Conversion Speed | ~2.5s (pdfplumber) | ~0.29s (PyMuPDF4LLM) |
+| Conversion Speed | ~2.5s (pdfplumber) | ~0.35s (MarkItDown) |
 
 ### Benchmarks
 
@@ -169,7 +166,6 @@ md_text = pymupdf4llm.to_markdown(str(pdf_path))
 
 | Engine | Time | Pages/Second |
 |--------|------|--------------|
-| PyMuPDF4LLM | 0.29s | ~20 pages/s |
 | MarkItDown | ~0.35s | ~17 pages/s |
 | pdfplumber | 2.1s | ~3 pages/s |
 
@@ -199,17 +195,17 @@ observer.start()  # Sleeps until filesystem event
 - Scales better (no polling overhead)
 - More "Unix-like" (use kernel features)
 
-### Why PyMuPDF4LLM Over pdfplumber?
+### Why MarkItDown Over pdfplumber?
 
 **pdfplumber**:
 - Pros: Excellent table extraction, well-documented
-- Cons: 60x slower, not LLM-optimized, more dependencies
+- Cons: Slower, not LLM-optimized
 
-**PyMuPDF4LLM**:
-- Pros: 60x faster, LLM-optimized output, fewer dependencies
+**MarkItDown**:
+- Pros: LLM-optimized output, Microsoft-backed, modern approach
 - Cons: Slightly less sophisticated table handling
 
-**Decision**: Choose PyMuPDF4LLM as default, offer pdfplumber for table-heavy documents.
+**Decision**: Choose MarkItDown as default, offer pdfplumber for table-heavy documents.
 
 ### Why systemd Over Cron?
 
@@ -241,7 +237,7 @@ observer.start()  # Sleeps until filesystem event
 - Future-proof (can add new engines)
 - Fallback options if one fails
 
-**Decision**: Support 3 engines (PyMuPDF4LLM, MarkItDown, pdfplumber) with easy switching.
+**Decision**: Support 2 engines (MarkItDown, pdfplumber) with easy switching.
 
 ## Security Considerations
 
@@ -314,44 +310,40 @@ Consider scaling when:
 
 ## Research Citations
 
-1. **PyMuPDF Documentation**
-   - https://pymupdf.readthedocs.io/
-   - Features comparison with other libraries
-
-2. **Python Watchdog**
+1. **Python Watchdog**
    - https://github.com/gorakhargosh/watchdog
    - Cross-platform file monitoring
 
-3. **Microsoft MarkItDown**
+2. **Microsoft MarkItDown**
    - https://github.com/microsoft/markitdown
    - Released 2024, LLM-optimized
 
-4. **Docling (IBM Research)**
+3. **Docling (IBM Research)**
    - https://github.com/docling-project/docling
    - arXiv: https://arxiv.org/pdf/2501.17887
    - Trending #1 November 2024
 
-5. **Marker**
+4. **Marker**
    - https://github.com/VikParuchuri/marker
    - High-accuracy PDF conversion
 
-6. **Academic Research**
+5. **Academic Research**
    - "A Comparative Study of PDF Parsing Tools Across Diverse Document Categories" (2024)
    - arXiv: https://arxiv.org/html/2410.09871v1
 
-7. **Performance Benchmarks**
+6. **Performance Benchmarks**
    - "I Tested 7 Python PDF Extractors So You Don't Have To" (2025)
    - Medium article with comparative benchmarks
 
-8. **CERN Document Converter**
+7. **CERN Document Converter**
    - https://github.com/CERNCDAIC/doconverter
    - Production architecture reference
 
-9. **inotify Documentation**
+8. **inotify Documentation**
    - https://www.infoq.com/articles/inotify-linux-file-system-event-monitoring/
    - Linux filesystem event monitoring
 
-10. **systemd Best Practices**
+9. **systemd Best Practices**
     - https://poweradm.com/watch-file-directory-changes-linux/
     - systemd path units for file monitoring
 
@@ -365,7 +357,7 @@ Consider scaling when:
 
 **v2.0** (Current - Research-Based Redesign)
 - Event-driven monitoring (Watchdog + inotify)
-- PyMuPDF4LLM conversion (60x faster)
+- MarkItDown conversion (LLM-optimized)
 - Multiple conversion engines
 - Zero idle resources
 - Production-grade error handling
@@ -377,6 +369,6 @@ PDF Sentinel's architecture represents a synthesis of:
 - Current research (2025 benchmarks and academic studies)
 - Production systems (CERN, enterprise patterns)
 - Modern best practices (event-driven, systemd, LLM-optimization)
-- Performance optimization (60x speed improvement)
+- Performance optimization (improved speed and quality)
 
 The result is a production-ready system that outperforms traditional approaches while maintaining simplicity and reliability.

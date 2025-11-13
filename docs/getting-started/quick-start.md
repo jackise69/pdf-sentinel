@@ -18,7 +18,7 @@ The simplest way to convert a PDF:
 pdf-sentinel convert document.pdf -o output.md
 ```
 
-This converts `document.pdf` to `output.md` using the default PyMuPDF4LLM engine.
+This converts `document.pdf` to `output.md` using the default MarkItDown engine.
 
 ### 2. Watch a Folder
 
@@ -57,13 +57,10 @@ This creates and enables a systemd user service that starts automatically.
 
 ## Choose a Conversion Engine
 
-PDF Sentinel supports three conversion engines:
+PDF Sentinel supports two conversion engines:
 
 ```bash
-# PyMuPDF4LLM (default, fastest, LLM-optimized)
-pdf-sentinel convert document.pdf -o output.md --engine pymupdf4llm
-
-# Microsoft MarkItDown (LLM-optimized, modern)
+# Microsoft MarkItDown (default, LLM-optimized, modern)
 pdf-sentinel convert document.pdf -o output.md --engine markitdown
 
 # pdfplumber (best for complex tables)
@@ -81,7 +78,7 @@ from pdf_sentinel import PDFSentinel, Config
 config = Config(
     input_dir="/path/to/input",
     output_dir="/path/to/output",
-    engine="pymupdf4llm"
+    engine="markitdown"
 )
 
 # Start watching

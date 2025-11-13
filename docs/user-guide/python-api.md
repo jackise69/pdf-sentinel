@@ -11,7 +11,7 @@ from pdf_sentinel import PDFSentinel, Config
 config = Config(
     input_dir="/path/to/input",
     output_dir="/path/to/output",
-    engine="pymupdf4llm"
+    engine="markitdown"
 )
 
 # Create sentinel instance
@@ -32,7 +32,7 @@ from pathlib import Path
 config = Config(
     input_dir=Path("/path/to/input"),      # Required
     output_dir=Path("/path/to/output"),    # Required
-    engine="pymupdf4llm",                  # Optional, default: "pymupdf4llm"
+    engine="markitdown",                   # Optional, default: "markitdown"
     max_retries=2,                         # Optional, default: 2
     retry_delay=2.0                        # Optional, default: 2.0 seconds
 )
@@ -42,7 +42,7 @@ config = Config(
 
 - `input_dir` (Path | str) - Directory to watch for PDFs
 - `output_dir` (Path | str) - Directory to save markdown files
-- `engine` (str) - Conversion engine: `"pymupdf4llm"`, `"markitdown"`, or `"pdfplumber"`
+- `engine` (str) - Conversion engine: `"markitdown"` or `"pdfplumber"`
 - `max_retries` (int) - Number of retry attempts for failed conversions
 - `retry_delay` (float) - Seconds to wait between retry attempts
 
@@ -89,12 +89,11 @@ sentinel.stop()
 ## Single File Conversion
 
 ```python
-from pdf_sentinel.converters import PyMuPDFConverter, MarkItDownConverter, PDFPlumberConverter
+from pdf_sentinel.converters import MarkItDownConverter, PDFPlumberConverter
 from pathlib import Path
 
 # Choose converter
-converter = PyMuPDFConverter()
-# converter = MarkItDownConverter()
+converter = MarkItDownConverter()
 # converter = PDFPlumberConverter()
 
 # Convert
@@ -227,7 +226,7 @@ def main():
         config = Config(
             input_dir=Path("/data/pdfs/input"),
             output_dir=Path("/data/pdfs/output"),
-            engine="pymupdf4llm",
+            engine="markitdown",
             max_retries=3,
             retry_delay=5.0
         )

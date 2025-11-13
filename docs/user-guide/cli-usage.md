@@ -20,13 +20,13 @@ pdf-sentinel start --input INPUT_DIR --output OUTPUT_DIR [OPTIONS]
 
 - `--input`, `-i` - Input directory to watch for PDFs (required)
 - `--output`, `-o` - Output directory for markdown files (required)
-- `--engine`, `-e` - Conversion engine: `pymupdf4llm`, `markitdown`, or `pdfplumber` (default: `pymupdf4llm`)
+- `--engine`, `-e` - Conversion engine: `markitdown` or `pdfplumber` (default: `markitdown`)
 - `--scan` / `--no-scan` - Process existing PDFs on startup (default: `--scan`)
 
 **Example:**
 
 ```bash
-pdf-sentinel start --input ~/pdfs/input --output ~/pdfs/output --engine pymupdf4llm
+pdf-sentinel start --input ~/pdfs/input --output ~/pdfs/output --engine markitdown
 ```
 
 **Behavior:**
@@ -52,7 +52,7 @@ pdf-sentinel convert PDF_FILE --output OUTPUT_FILE [OPTIONS]
 
 - `PDF_FILE` - Path to PDF file to convert (required)
 - `--output`, `-o` - Output markdown file path (required)
-- `--engine`, `-e` - Conversion engine (default: `pymupdf4llm`)
+- `--engine`, `-e` - Conversion engine (default: `markitdown`)
 
 **Example:**
 
@@ -72,7 +72,7 @@ pdf-sentinel install --input INPUT_DIR --output OUTPUT_DIR [OPTIONS]
 
 - `--input`, `-i` - Input directory to watch (required)
 - `--output`, `-o` - Output directory for markdown (required)
-- `--engine`, `-e` - Conversion engine (default: `pymupdf4llm`)
+- `--engine`, `-e` - Conversion engine (default: `markitdown`)
 
 **Example:**
 
@@ -114,7 +114,7 @@ journalctl --user -u pdf-sentinel -f
 
 ```bash
 # Terminal 1: Watch with verbose output
-pdf-sentinel start -i ./test-input -o ./test-output --engine pymupdf4llm
+pdf-sentinel start -i ./test-input -o ./test-output --engine markitdown
 
 # Terminal 2: Drop test files
 cp test.pdf test-input/
@@ -143,12 +143,11 @@ done
 
 ```bash
 # Test different engines on the same file
-pdf-sentinel convert doc.pdf -o doc-pymupdf.md --engine pymupdf4llm
 pdf-sentinel convert doc.pdf -o doc-markitdown.md --engine markitdown
 pdf-sentinel convert doc.pdf -o doc-pdfplumber.md --engine pdfplumber
 
 # Compare results
-diff doc-pymupdf.md doc-markitdown.md
+diff doc-markitdown.md doc-pdfplumber.md
 ```
 
 ## Environment Variables

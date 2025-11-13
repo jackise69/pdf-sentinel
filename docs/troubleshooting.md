@@ -59,7 +59,7 @@ python: can't open file '/path/to/venv/bin/python': [Errno 2] No such file or di
    ```bash
    python3 -m venv /path/to/venv
    source /path/to/venv/bin/activate
-   pip install watchdog pymupdf4llm markitdown pdfplumber
+   pip install watchdog markitdown pdfplumber
    ```
 
 3. Update service file with correct path:
@@ -80,7 +80,7 @@ ModuleNotFoundError: No module named 'watchdog'
 **Solution:**
 ```bash
 source /path/to/venv/bin/activate
-pip install watchdog pymupdf4llm markitdown pdfplumber
+pip install watchdog markitdown pdfplumber
 systemctl --user restart pdf-watcher.service
 ```
 
@@ -240,7 +240,7 @@ Error: PDF is damaged or cannot be opened
 
 3. Try alternative conversion engine:
    - Edit service file
-   - Change `PDF_CONVERTER=pymupdf4llm` to `PDF_CONVERTER=pdfplumber`
+   - Change `PDF_CONVERTER=markitdown` to `PDF_CONVERTER=pdfplumber`
    - Restart service and retry
 
 #### B. Password-Protected PDF
@@ -415,19 +415,18 @@ grep "conversion complete" /path/to/pdf-conversions/pdf_watcher.log | tail -10
 
 #### A. Using pdfplumber Engine
 
-**Problem:** pdfplumber is 60x slower than PyMuPDF4LLM.
+**Problem:** pdfplumber is slower than MarkItDown.
 
 **Solution:**
 ```bash
-# Switch to PyMuPDF4LLM
+# Switch to MarkItDown
 nano ~/.config/systemd/user/pdf-watcher.service
-# Change: Environment="PDF_CONVERTER=pymupdf4llm"
+# Change: Environment="PDF_CONVERTER=markitdown"
 systemctl --user daemon-reload
 systemctl --user restart pdf-watcher.service
 ```
 
 **Expected Speeds:**
-- PyMuPDF4LLM: ~0.05s per page
 - MarkItDown: ~0.06s per page
 - pdfplumber: ~0.35s per page
 
@@ -528,9 +527,8 @@ Environment="PDF_CONVERTER=markitdown"
 **Problem:** Markdown formatting is inconsistent.
 
 **Solution:**
-- PyMuPDF4LLM: Best for general use
-- MarkItDown: Best for Microsoft documents
-- pdfplumber: Best for complex layouts
+- MarkItDown: Best for general use and LLM workflows
+- pdfplumber: Best for complex layouts and tables
 
 ### 9. Environment-Specific Issues
 
@@ -563,19 +561,14 @@ wsl --set-version Ubuntu 2
 
 ### 1. Choose the Right Engine
 
-**For Speed:**
+**For LLM Integration (Default):**
 ```bash
-Environment="PDF_CONVERTER=pymupdf4llm"
+Environment="PDF_CONVERTER=markitdown"
 ```
 
 **For Table Quality:**
 ```bash
 Environment="PDF_CONVERTER=pdfplumber"
-```
-
-**For LLM Integration:**
-```bash
-Environment="PDF_CONVERTER=markitdown"
 ```
 
 ### 2. Batch Processing
@@ -626,9 +619,10 @@ Test conversion without the service:
 source /path/to/venv/bin/activate
 cd /path/to/pdf-conversions
 python3 -c "
-import pymupdf4llm
-result = pymupdf4llm.to_markdown('input/test.pdf')
-print(result[:500])  # First 500 chars
+from markitdown import MarkItDown
+md = MarkItDown()
+result = md.convert('input/test.pdf')
+print(result.text_content[:500])  # First 500 chars
 "
 ```
 
@@ -656,7 +650,7 @@ If issues persist:
 2. **Check Dependencies:**
    ```bash
    source /path/to/venv/bin/activate
-   pip list | grep -E "(watchdog|pymupdf|markitdown|pdfplumber)"
+   pip list | grep -E "(watchdog|markitdown|pdfplumber)"
    ```
 
 3. **Test Minimal Case:**
@@ -685,7 +679,7 @@ If issues persist:
 
 **Monthly:**
 - Review service logs for patterns
-- Update dependencies: `pip install --upgrade pymupdf4llm markitdown`
+- Update dependencies: `pip install --upgrade markitdown pdfplumber`
 - Clean old processed files if needed
 
 **As Needed:**

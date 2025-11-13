@@ -6,16 +6,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-PDF Sentinel automatically converts PDF files to Markdown format optimized for LLM and RAG workflows. Built on 2025 research and best practices, it's **60x faster** than traditional approaches with zero idle resource usage.
+PDF Sentinel automatically converts PDF files to Markdown format optimized for LLM and RAG workflows. Built on 2025 research and best practices, with event-driven monitoring for zero idle resource usage.
 
 ## Features
 
 - ⚡ **Event-driven monitoring** - Zero idle resources using Linux inotify (Watchdog library)
-- 🏎️ **60x faster conversion** - PyMuPDF4LLM vs traditional pdfplumber (0.29s vs 2.5s)
 - 🤖 **LLM-optimized output** - Markdown formatted specifically for AI/RAG workflows
-- 🔄 **Multiple conversion engines** - PyMuPDF4LLM (default), Microsoft MarkItDown, pdfplumber
+- 🔄 **Multiple conversion engines** - Microsoft MarkItDown (default), pdfplumber
 - 🛡️ **Production-ready** - Automatic retry, error tracking, systemd integration
 - 📊 **Comprehensive logging** - Performance metrics and detailed activity tracking
+- ⚖️ **MIT licensed** - All dependencies are MIT licensed for maximum compatibility
 
 ## Quick Start
 
@@ -60,9 +60,8 @@ Based on 2025 benchmarks and academic research:
 
 | Engine | Speed (6-page PDF) | LLM-Ready | Best For |
 |--------|-------------------|-----------|----------|
-| **PyMuPDF4LLM** (default) | 0.29s ⚡⚡⚡ | ✅ Yes | General use, speed |
-| **MarkItDown** | ~0.35s ⚡⚡ | ✅ Yes | Microsoft docs |
-| **pdfplumber** | 2.1s ⚡ | ❌ No | Complex tables |
+| **MarkItDown** (default) | ~0.35s ⚡⚡ | ✅ Yes | General use, LLM workflows |
+| **pdfplumber** | 2.1s ⚡ | ❌ No | Complex tables, data extraction |
 
 **Resource Usage:**
 - Idle: ~0MB RAM, 0% CPU (event-driven)
@@ -78,7 +77,7 @@ Built on research from:
 
 **Technology Stack:**
 - **File Monitoring**: Python Watchdog (event-driven, cross-platform)
-- **PDF Conversion**: PyMuPDF4LLM (60x faster, LLM-optimized)
+- **PDF Conversion**: Microsoft MarkItDown (LLM-optimized, MIT licensed)
 - **Service Management**: systemd user service
 - **Logging**: Python logging + systemd journal
 
@@ -93,7 +92,7 @@ from pdf_sentinel.config import ConversionEngine
 config = Config(
     input_dir="/path/to/input",
     output_dir="/path/to/output",
-    engine=ConversionEngine.PYMUPDF4LLM,  # or MARKITDOWN, PDFPLUMBER
+    engine=ConversionEngine.MARKITDOWN,  # or PDFPLUMBER
     max_retries=2,
     retry_delay=2.0
 )
@@ -106,7 +105,7 @@ sentinel.start()  # Blocks until stopped
 
 ```bash
 export PDF_SENTINEL_DIR=/path/to/pdf-conversions
-export PDF_CONVERTER=pymupdf4llm  # or markitdown, pdfplumber
+export PDF_CONVERTER=markitdown  # or pdfplumber
 export PDF_MAX_RETRIES=2
 export PDF_LOG_LEVEL=INFO
 ```
@@ -163,12 +162,14 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for gu
 
 MIT License - see [LICENSE](LICENSE) for details.
 
+**License Compatibility:** All dependencies are MIT licensed, ensuring full compatibility for commercial and open source use without copyleft restrictions.
+
 ## Credits
 
 Research sources:
-- [PyMuPDF4LLM](https://github.com/pymupdf/PyMuPDF) - High-performance PDF processing
-- [Microsoft MarkItDown](https://github.com/microsoft/markitdown) - LLM-optimized conversion
-- [Watchdog](https://github.com/gorakhargosh/watchdog) - Cross-platform file monitoring
+- [Microsoft MarkItDown](https://github.com/microsoft/markitdown) - LLM-optimized conversion (MIT)
+- [pdfplumber](https://github.com/jsvine/pdfplumber) - Table extraction (MIT)
+- [Watchdog](https://github.com/gorakhargosh/watchdog) - Cross-platform file monitoring (Apache 2.0)
 - [Docling](https://github.com/docling-project/docling) - IBM Research AI document conversion
 - Academic: "A Comparative Study of PDF Parsing Tools" (2024)
 - Performance benchmarks: "I Tested 7 Python PDF Extractors" (2025)

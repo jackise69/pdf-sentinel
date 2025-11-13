@@ -7,7 +7,7 @@ from pathlib import Path
 
 from pdf_sentinel import PDFSentinel, Config, __version__
 from pdf_sentinel.config import ConversionEngine
-from pdf_sentinel.converters import PyMuPDFConverter, MarkItDownConverter, PDFPlumberConverter
+from pdf_sentinel.converters import MarkItDownConverter, PDFPlumberConverter
 
 logger = logging.getLogger(__name__)
 
@@ -36,9 +36,7 @@ def cmd_convert(args):
         sys.exit(1)
 
     # Get converter
-    if args.engine == "pymupdf4llm":
-        converter = PyMuPDFConverter()
-    elif args.engine == "markitdown":
+    if args.engine == "markitdown":
         converter = MarkItDownConverter()
     elif args.engine == "pdfplumber":
         converter = PDFPlumberConverter()
@@ -185,9 +183,9 @@ def main():
     start_parser.add_argument(
         "--engine", "-e",
         type=str,
-        choices=["pymupdf4llm", "markitdown", "pdfplumber"],
-        default="pymupdf4llm",
-        help="Conversion engine (default: pymupdf4llm)"
+        choices=["markitdown", "pdfplumber"],
+        default="markitdown",
+        help="Conversion engine (default: markitdown)"
     )
     start_parser.add_argument(
         "--retries", "-r",
@@ -227,9 +225,9 @@ def main():
     convert_parser.add_argument(
         "--engine", "-e",
         type=str,
-        choices=["pymupdf4llm", "markitdown", "pdfplumber"],
-        default="pymupdf4llm",
-        help="Conversion engine (default: pymupdf4llm)"
+        choices=["markitdown", "pdfplumber"],
+        default="markitdown",
+        help="Conversion engine (default: markitdown)"
     )
     convert_parser.set_defaults(func=cmd_convert)
 
@@ -253,9 +251,9 @@ def main():
     install_parser.add_argument(
         "--engine", "-e",
         type=str,
-        choices=["pymupdf4llm", "markitdown", "pdfplumber"],
-        default="pymupdf4llm",
-        help="Conversion engine (default: pymupdf4llm)"
+        choices=["markitdown", "pdfplumber"],
+        default="markitdown",
+        help="Conversion engine (default: markitdown)"
     )
     install_parser.add_argument(
         "--no-enable",

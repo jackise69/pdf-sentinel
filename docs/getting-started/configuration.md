@@ -24,7 +24,7 @@ config = Config(input_dir="/path/to/input", output_dir="/path/to/output")
 
 ### Conversion Engine
 
-**Default:** `pymupdf4llm`
+**Default:** `markitdown`
 
 Choose which PDF parsing library to use:
 
@@ -40,8 +40,7 @@ config = Config(input_dir="./input", output_dir="./output", engine="markitdown")
 ```
 
 **Available engines:**
-- `pymupdf4llm` - Fastest (60x faster), LLM-optimized (default)
-- `markitdown` - Microsoft 2024, LLM-optimized
+- `markitdown` - Microsoft 2024, LLM-optimized (default)
 - `pdfplumber` - Best for complex tables
 
 ### Retry Logic
@@ -92,7 +91,7 @@ logging.basicConfig(level=logging.DEBUG)
 |----------|------|---------|-------------|
 | `PDF_SENTINEL_INPUT_DIR` | string | Required | Directory to watch for PDFs |
 | `PDF_SENTINEL_OUTPUT_DIR` | string | Required | Directory for markdown output |
-| `PDF_SENTINEL_ENGINE` | string | `pymupdf4llm` | Conversion engine to use |
+| `PDF_SENTINEL_ENGINE` | string | `markitdown` | Conversion engine to use |
 | `PDF_SENTINEL_MAX_RETRIES` | int | `2` | Number of retry attempts |
 | `PDF_SENTINEL_RETRY_DELAY` | float | `2.0` | Seconds between retries |
 | `PDF_SENTINEL_LOG_LEVEL` | string | `INFO` | Logging verbosity |
@@ -136,7 +135,7 @@ from pathlib import Path
 config = Config(
     input_dir=Path("/data/input"),
     output_dir=Path("/data/output"),
-    engine="pymupdf4llm",
+    engine="markitdown",
     max_retries=3,
     retry_delay=5.0
 )

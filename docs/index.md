@@ -15,13 +15,14 @@ PDF Sentinel is a production-ready Python package that provides **event-driven P
 
 ### Key Features
 
-- **⚡ 60x Faster** - PyMuPDF4LLM conversion vs traditional approaches
+- **⚡ Fast Conversion** - LLM-optimized MarkItDown engine
 - **🔋 Zero Idle Resources** - Event-driven architecture with 0MB idle RAM
-- **🎯 Multiple Engines** - PyMuPDF4LLM, MarkItDown, pdfplumber support
+- **🎯 Multiple Engines** - MarkItDown (default), pdfplumber support
 - **🛡️ Production-Ready** - Retry logic, error tracking, statistics
 - **🐧 systemd Integration** - Run as Linux service for 24/7 operation
 - **🖥️ Full CLI** - Three simple commands for all operations
 - **🤖 LLM-Optimized** - Markdown output perfect for RAG pipelines
+- **⚖️ MIT Licensed** - All dependencies MIT licensed for full compatibility
 
 ---
 
@@ -60,7 +61,7 @@ from pdf_sentinel import PDFSentinel, Config
 config = Config(
     input_dir="/path/to/input",
     output_dir="/path/to/output",
-    engine="pymupdf4llm"  # or "markitdown", "pdfplumber"
+    engine="markitdown"  # or "pdfplumber"
 )
 
 sentinel = PDFSentinel(config)
@@ -75,7 +76,7 @@ Built on research-backed methodology for maximum efficiency:
 
 | Metric | v1.0 (Polling) | v2.0 (Event-Driven) | Improvement |
 |--------|---------------|---------------------|-------------|
-| **Conversion Speed** | 2.1s | 0.29s | **60x faster** |
+| **Conversion Speed** | 2.1s (pdfplumber) | 0.35s (MarkItDown) | **6x faster** |
 | **Idle RAM** | 46MB | ~0MB | **100% reduction** |
 | **Response Time** | 5s delay | Instant | **Real-time** |
 | **CPU Usage** | Wakes every 5s | 0% idle | **Zero waste** |
@@ -90,10 +91,10 @@ Built on research-backed methodology for maximum efficiency:
 - Scales to thousands of files without overhead
 
 ### Multiple Conversion Engines
-- **PyMuPDF4LLM** (default) - 60x faster, LLM-optimized
-- **Microsoft MarkItDown** - LLM-optimized, modern
-- **pdfplumber** - Best for complex tables
+- **Microsoft MarkItDown** (default) - LLM-optimized, modern, MIT licensed
+- **pdfplumber** - Best for complex tables, MIT licensed
 - Easy switching via configuration
+- All engines MIT licensed for full commercial compatibility
 
 ### Production-Ready
 - Automatic retry logic (2 attempts, 2s delay)

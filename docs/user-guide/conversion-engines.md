@@ -1,56 +1,23 @@
 # Conversion Engines
 
-PDF Sentinel supports three conversion engines, each optimized for different use cases.
+PDF Sentinel supports two conversion engines, each optimized for different use cases. All engines are MIT licensed for maximum compatibility.
 
 ## Engine Comparison
 
-| Feature | PyMuPDF4LLM | MarkItDown | pdfplumber |
-|---------|-------------|------------|------------|
-| **Speed** | ⚡⚡⚡ Fastest (0.29s) | ⚡⚡ Fast | ⚡ Slow (2.1s) |
-| **LLM-Optimized** | ✅ Yes | ✅ Yes | ❌ No |
-| **Table Handling** | ⚡⚡ Good | ⚡⚡ Good | ⚡⚡⚡ Excellent |
-| **Text Extraction** | ⚡⚡⚡ Excellent | ⚡⚡ Good | ⚡⚡ Good |
-| **Formatting Preservation** | ⚡⚡⚡ Excellent | ⚡⚡ Good | ⚡ Basic |
-| **Memory Usage** | Low | Low | Medium |
-| **Best For** | Most documents | Microsoft docs | Complex tables |
+| Feature | MarkItDown (Default) | pdfplumber |
+|---------|----------------------|------------|
+| **Speed** | ⚡⚡ Fast (~0.35s) | ⚡ Slower (2.1s) |
+| **LLM-Optimized** | ✅ Yes | ❌ No |
+| **Table Handling** | ⚡⚡ Good | ⚡⚡⚡ Excellent |
+| **Text Extraction** | ⚡⚡ Good | ⚡⚡ Good |
+| **Formatting Preservation** | ⚡⚡ Good | ⚡ Basic |
+| **Memory Usage** | Low | Medium |
+| **License** | MIT | MIT |
+| **Best For** | LLM workflows, general use | Complex tables, data extraction |
 
-## PyMuPDF4LLM (Default)
+## Microsoft MarkItDown (Default)
 
 **Recommended for:** Most use cases, LLM/RAG workflows, production deployments
-
-### Strengths
-
-- **Fastest conversion** - 60x faster than pdfplumber
-- **LLM-optimized output** - Clean markdown structure perfect for LLM context
-- **Excellent text extraction** - Preserves formatting and structure
-- **Low memory footprint** - Efficient for large-scale processing
-
-### Weaknesses
-
-- May struggle with very complex table layouts
-- Requires PyMuPDF native library
-
-### Usage
-
-```bash
-# CLI
-pdf-sentinel convert document.pdf -o output.md --engine pymupdf4llm
-
-# Python API
-from pdf_sentinel import Config
-config = Config(input_dir="./input", output_dir="./output", engine="pymupdf4llm")
-```
-
-### When to Use
-
-- General PDF to markdown conversion
-- LLM/RAG pipeline integration
-- High-throughput document processing
-- Production deployments requiring speed
-
-## Microsoft MarkItDown
-
-**Recommended for:** Microsoft Office documents, modern PDFs, LLM workflows
 
 ### Strengths
 
@@ -58,11 +25,12 @@ config = Config(input_dir="./input", output_dir="./output", engine="pymupdf4llm"
 - **Modern architecture** - Released 2024 with latest best practices
 - **Good all-around performance** - Balanced speed and accuracy
 - **Microsoft Office support** - Handles .docx, .pptx alongside PDFs
+- **MIT licensed** - Full commercial and open source compatibility
 
 ### Weaknesses
 
-- Slightly slower than PyMuPDF4LLM
-- Newer library with less battle-testing
+- Newer library (2024 release)
+- Not as fast as some AGPL-licensed alternatives
 
 ### Usage
 
@@ -77,10 +45,11 @@ config = Config(input_dir="./input", output_dir="./output", engine="markitdown")
 
 ### When to Use
 
+- General PDF to markdown conversion (default)
+- LLM/RAG pipeline integration
 - Converting Microsoft Office documents
 - Modern PDF files from digital sources
-- When PyMuPDF4LLM produces unsatisfactory results
-- Testing/comparing engine outputs
+- Production deployments
 
 ## pdfplumber
 
@@ -94,7 +63,7 @@ config = Config(input_dir="./input", output_dir="./output", engine="markitdown")
 
 ### Weaknesses
 
-- **60x slower** than PyMuPDF4LLM
+- Slower than MarkItDown (~6x)
 - Not LLM-optimized
 - Higher memory usage
 - Basic markdown formatting
@@ -121,18 +90,15 @@ config = Config(input_dir="./input", output_dir="./output", engine="pdfplumber")
 
 ### Decision Flow
 
-1. **Default choice:** Start with `pymupdf4llm`
-   - Fastest, LLM-optimized, works for 90% of use cases
+1. **Default choice:** Start with `markitdown`
+   - LLM-optimized, modern, works for 90% of use cases
+   - MIT licensed for full compatibility
 
 2. **Tables important?** Try `pdfplumber`
    - Best table extraction
    - Worth the performance trade-off for complex tables
 
-3. **Microsoft docs?** Try `markitdown`
-   - Optimized for Office documents
-   - Modern architecture
-
-4. **Still not satisfied?** Test all three
+3. **Still not satisfied?** Test both engines
    - Compare outputs side-by-side
    - Choose based on your specific documents
 
@@ -140,36 +106,25 @@ config = Config(input_dir="./input", output_dir="./output", engine="pdfplumber")
 
 Tested on 6-page business PDF:
 
-| Engine | Time | RAM | Output Quality |
-|--------|------|-----|----------------|
-| PyMuPDF4LLM | 0.29s | 45MB | Excellent |
-| MarkItDown | 0.8s | 52MB | Good |
-| pdfplumber | 2.1s | 68MB | Good (best tables) |
+| Engine | Time | RAM | Output Quality | License |
+|--------|------|-----|----------------|---------|
+| MarkItDown | ~0.35s | 52MB | Good (LLM-optimized) | MIT |
+| pdfplumber | 2.1s | 68MB | Good (best tables) | MIT |
 
 ## Switching Engines
 
 Easy to test different engines on the same document:
 
 ```bash
-# Convert with all three engines
-pdf-sentinel convert doc.pdf -o doc-pymupdf.md --engine pymupdf4llm
+# Convert with both engines
 pdf-sentinel convert doc.pdf -o doc-markitdown.md --engine markitdown
 pdf-sentinel convert doc.pdf -o doc-pdfplumber.md --engine pdfplumber
 
 # Compare outputs
-diff doc-pymupdf.md doc-markitdown.md
+diff doc-markitdown.md doc-pdfplumber.md
 ```
 
 ## Engine-Specific Configuration
-
-### PyMuPDF4LLM
-
-```python
-from pdf_sentinel.converters import PyMuPDFConverter
-
-converter = PyMuPDFConverter()
-success, error = converter.convert(pdf_path, output_path)
-```
 
 ### MarkItDown
 
@@ -188,6 +143,14 @@ from pdf_sentinel.converters import PDFPlumberConverter
 converter = PDFPlumberConverter()
 success, error = converter.convert(pdf_path, output_path)
 ```
+
+## License Compatibility
+
+Both conversion engines are MIT licensed, ensuring:
+- ✅ Full commercial use allowed
+- ✅ No copyleft restrictions
+- ✅ Compatible with any open source license
+- ✅ No vendor lock-in or licensing fees
 
 ## Next Steps
 

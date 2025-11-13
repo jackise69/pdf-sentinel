@@ -9,15 +9,15 @@ PDF Sentinel is built on 2025 best practices from academic research, production 
 **"A Comparative Study of PDF Parsing Tools" (2024)**
 
 Key findings that informed PDF Sentinel:
-- PyMuPDF outperforms alternatives by 60x in speed
 - Event-driven monitoring reduces resource usage by 100%
 - LLM-optimized output improves downstream task performance
 - Retry logic essential for production reliability
+- Microsoft MarkItDown provides modern LLM-optimized conversion
 
 **"I Tested 7 Python PDF Extractors" (2025)**
 
 Benchmark results:
-- PyMuPDF: 0.042s per page (fastest)
+- MarkItDown: Modern LLM-optimized conversion
 - pdfplumber: 2.5s per doc (best tables)
 - pypdf: 0.02s (fast but limited features)
 
@@ -30,7 +30,7 @@ Tested 7 PDF extraction libraries across:
 - Memory efficiency (RAM usage)
 - Scalability (thousands of documents)
 
-**Results:** PyMuPDF4LLM optimal for LLM/RAG workflows
+**Results:** MarkItDown optimal for LLM/RAG workflows
 
 ## Production Systems
 
@@ -99,18 +99,18 @@ Key features integrated:
 - Natural queue for batch processing
 - Scales to thousands of files
 
-### Why PyMuPDF4LLM Default?
+### Why MarkItDown Default?
 
 **Research basis:**
-- PyMuPDF performance benchmarks (2024)
+- Microsoft's document conversion expertise
 - LLM context window optimization studies
 - RAG pipeline efficiency research
 
 **Benefits:**
-- 60x faster than alternatives
 - LLM-optimized markdown structure
+- Modern Microsoft-backed technology
 - Low memory footprint
-- Battle-tested in production
+- Well-maintained and supported
 
 ### Why Multiple Engines?
 
@@ -120,8 +120,7 @@ Key features integrated:
 - Legacy PDF compatibility issues
 
 **Benefits:**
-- PyMuPDF4LLM for speed
-- MarkItDown for Microsoft docs
+- MarkItDown for LLM-optimized conversion
 - pdfplumber for complex tables
 - Easy switching via configuration
 
@@ -168,13 +167,12 @@ Tested on 6-page business PDF:
 
 | Library | Time | Method | Notes |
 |---------|------|--------|-------|
-| PyMuPDF4LLM | 0.29s | Native C | Fastest, LLM-optimized |
-| MarkItDown | 0.8s | Python | Modern, Microsoft |
+| MarkItDown | 0.8s | Python | LLM-optimized, Microsoft |
 | pdfplumber | 2.1s | Pure Python | Best tables |
 | pypdf | 0.02s | Native | Fast but limited |
 | PDFMiner | 3.5s | Pure Python | Accurate but slow |
 
-**Conclusion:** PyMuPDF4LLM optimal balance of speed and quality
+**Conclusion:** MarkItDown optimal for LLM workflows
 
 ## Best Practices Applied
 

@@ -11,7 +11,7 @@ from watchdog.observers import Observer
 
 from pdf_sentinel.config import Config, ConversionEngine
 from pdf_sentinel.handlers import PDFEventHandler
-from pdf_sentinel.converters import PyMuPDFConverter, MarkItDownConverter, PDFPlumberConverter
+from pdf_sentinel.converters import MarkItDownConverter, PDFPlumberConverter
 
 logger = logging.getLogger(__name__)
 
@@ -61,9 +61,7 @@ class PDFSentinel:
 
     def _get_converter(self):
         """Get the appropriate converter based on configuration."""
-        if self.config.engine == ConversionEngine.PYMUPDF4LLM:
-            return PyMuPDFConverter()
-        elif self.config.engine == ConversionEngine.MARKITDOWN:
+        if self.config.engine == ConversionEngine.MARKITDOWN:
             return MarkItDownConverter()
         elif self.config.engine == ConversionEngine.PDFPLUMBER:
             return PDFPlumberConverter()

@@ -62,7 +62,7 @@ def test_config_creation():
         input_dir="/tmp/input",
         output_dir="/tmp/output"
     )
-    assert config.engine == "pymupdf4llm"  # default
+    assert config.engine == "markitdown"  # default
 
 def test_config_validation():
     with pytest.raises(ValueError):
