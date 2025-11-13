@@ -141,3 +141,9 @@ output/
 *.md
 !README.md
 !docs/**/*.md
+!SECURITY_AUDIT_REPORT.md
+!*SUMMARY*.md
+
+# Node modules (docx generation)
+node_modules/
+package-lock.json

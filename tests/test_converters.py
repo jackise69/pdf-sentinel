@@ -4,7 +4,7 @@ import pytest
 import tempfile
 from pathlib import Path
 
-from pdf_sentinel.converters import PyMuPDFConverter, MarkItDownConverter, PDFPlumberConverter
+from pdf_sentinel.converters import MarkItDownConverter, PDFPlumberConverter
 
 
 @pytest.fixture
@@ -12,12 +12,6 @@ def temp_dir():
     """Create a temporary directory for tests."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield Path(tmpdir)
-
-
-def test_pymupdf_converter_name():
-    """Test PyMuPDF converter name."""
-    converter = PyMuPDFConverter()
-    assert converter.name == "PyMuPDF4LLM"
 
 
 def test_markitdown_converter_name():
@@ -35,7 +29,7 @@ def test_pdfplumber_converter_name():
 def test_converter_missing_dependency(temp_dir):
     """Test converter behavior when dependency is missing."""
     # This test assumes the library might not be installed
-    converter = PyMuPDFConverter()
+    converter = MarkItDownConverter()
     pdf_path = temp_dir / "test.pdf"
     output_path = temp_dir / "test.md"
 
